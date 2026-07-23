@@ -8,8 +8,8 @@ A literate Emacs configuration built on the Doom Emacs framework, optimized for 
 |--------|-------|---------|
 | `:lang org` | `+roam2` | Note-taking, knowledge management, Zettelkasten workflow |
 | `:lang latex` | `+cdlatex +latexmk +lsp` | Academic document preparation with live preview |
-| `:lang python` | — | Programming, data science, literate programming |
-| `:tools lsp` | — | Language server protocol for code intelligence |
+| `:lang python` |: | Programming, data science, literate programming |
+| `:tools lsp` |: | Language server protocol for code intelligence |
 
 ## Key Bindings
 
@@ -30,7 +30,7 @@ This configuration assumes an existing Doom Emacs installation. See the [Doom Em
 ## Note-Taking Workflow
 
 The configuration implements a Zettelkasten workflow adapted for university coursework:
-1. Attend lectures without taking notes — focus exclusively on comprehension
+1. Attend lectures without taking notes: focus exclusively on comprehension
 2. In the evening, write notes from memory using Org-Roam capture templates
 3. Fill gaps using textbooks and lecture materials
 4. Link new notes to existing concepts using Org-Roam's node insertion

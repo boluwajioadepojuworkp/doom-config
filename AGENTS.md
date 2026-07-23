@@ -1,10 +1,10 @@
-# AGENTS.md — Doom Emacs Configuration
+# AGENTS.md: Doom Emacs Configuration
 
 ## Repository Layout
-- `init.el` — Doom Emacs entry point. Declares modules and flags.
-- `config.org` — Literate configuration in Org-mode format. All customization lives here.
-- `snippets/` — YASnippet templates for code generation.
-- `images/` — Screenshots for documentation.
+- `init.el`: Doom Emacs entry point. Declares modules and flags.
+- `config.org`: Literate configuration in Org-mode format. All customization lives here.
+- `snippets/`: YASnippet templates for code generation.
+- `images/`: Screenshots for documentation.
 
 ## Building and Testing
 ```bash
@@ -20,7 +20,7 @@ doom doctor
 
 ## Note-Taking System (Org-Roam)
 This config implements evidence-based note-taking with spaced repetition,
-retrieval practice, and dense concept linking — built on Org-Roam with
+retrieval practice, and dense concept linking: built on Org-Roam with
 Doom Emacs.
 
 ### Directory Structure (`~/Notes/`)
@@ -32,8 +32,8 @@ Doom Emacs.
 | `math/` | Mathematics reference notes (Paul's Notes) | `SPC r c m` |
 | `evergreen/` | Permanent/evergreen notes | `SPC r c p` |
 | `daily/` | Daily retrieval practice entries | `SPC r c j` |
-| `assets/` | Attached files and images | — |
-| `images/` | Drag-and-drop images | — |
+| `assets/` | Attached files and images |: |
+| `images/` | Drag-and-drop images |: |
 
 ### Key Bindings
 | Key | Action |
@@ -88,8 +88,8 @@ as Markdown for the Quartz knowledge graph site.
 | `:lang latex` | `+cdlatex +lsp` | Academic writing with live preview and code intelligence |
 | `:lang python` | `+lsp +tree-sitter` | Programming, data science |
 | `:tools lsp` | `+eglot +booster` | Language server protocol |
-| `:tools magit` | — | Git porcelain |
-| `:tools pdf` | — | PDF viewing with annotations |
+| `:tools magit` |: | Git porcelain |
+| `:tools pdf` |: | PDF viewing with annotations |
 
 ## Commit Messages
 - Follow the [Chris Beams](http://chris.beams.io/posts/git-commit-style/) style.
