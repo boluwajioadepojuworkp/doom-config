@@ -2000,6 +2000,134 @@ Set up =org-roam= along with keybindings that have the [[kbd:][<leader> r]] pref
          :desc "Add tag"            "t" #'org-roam-tag-add
          :desc "Remove tag"         "T" #'org-roam-tag-remove
          :desc "Visit node"         "v" #'org-roam-node-visit)))
+
+;; ── Capture Templates ──────────────────────────────────────────────
+;; Adapted from Michael Neuper's CS note-taking method.
+;; Structure: Week → Lecture → Topics  OR  Chapter → Topics
+
+(setq org-roam-capture-templates
+      `(("d" "default" plain "%?"
+         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: \n#+date: %<%Y-%m-%d>\n\n")
+         :unnarrowed t)
+
+        ("c" "course index" plain
+         ,(concat
+           "#+title: ${title}\n"
+           "#+filetags: :course:\n"
+           "#+date: %<%Y-%m-%d>\n\n"
+           "* Week 1\n"
+           "** Lecture 1\n"
+           "*** Topic 1\n"
+           "*** Topic 2\n"
+           "** Lecture 2\n\n"
+           "* Week 2\n"
+           "** Lecture 1\n")
+         :target (file+head "courses/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: :course:\n")
+         :unnarrowed t)
+
+        ("l" "lecture note" plain
+         ,(concat
+           "#+title: ${title}\n"
+           "#+filetags: :lecture:\n"
+           "#+date: %<%Y-%m-%d>\n\n"
+           "* Topics\n\n"
+           "* Key Concepts\n\n"
+           "* Questions\n\n"
+           "* References\n")
+         :target (file+head "lectures/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: :lecture:\n")
+         :unnarrowed t)
+
+        ("t" "topic note" plain
+         ,(concat
+           "#+title: ${title}\n"
+           "#+filetags: :topic:\n"
+           "#+date: %<%Y-%m-%d>\n\n"
+           "* Definition\n\n"
+           "* Concrete Example\n\n"
+           "* Connections\n\n"
+           "* Code\n\n"
+           "* References\n")
+         :target (file+head "topics/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: :topic:\n")
+         :unnarrowed t)
+
+        ("m" "math note" plain
+         ,(concat
+           "#+title: ${title}\n"
+           "#+filetags: :math:\n"
+           "#+date: %<%Y-%m-%d>\n\n"
+           "* Formula\n\n"
+           "$\\displaystyle{}$\n\n"
+           "* Intuition\n\n"
+           "* Concrete Example\n\n"
+           "* Connections\n"
+           "- [[id:][Related concept]]\n\n"
+           "* Practice Problems\n")
+         :target (file+head "math/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: :math:\n")
+         :unnarrowed t)
+
+        ("p" "permanent/evergreen note" plain
+         ,(concat
+           "#+title: ${title}\n"
+           "#+filetags: :evergreen:\n"
+           "#+date: %<%Y-%m-%d>\n"
+           "#+roam_alias: \n\n"
+           "* Claim\n\n"
+           "* Evidence\n\n"
+           "* Counter-arguments\n\n"
+           "* Source\n")
+         :target (file+head "evergreen/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+filetags: :evergreen:\n")
+         :unnarrowed t)))
+
+;; ── Daily Notes ─────────────────────────────────────────────────────
+;; End-of-day retrieval practice: write what you remember from lectures.
+
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      `(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d %A>\n#+filetags: :daily:\n"))))
+
+;; Capture keybinding
+(map! :leader
+      (:prefix ("r" . "roam")
+       :desc "Capture"       "c" #'org-roam-capture
+       :desc "Daily note"    "j" #'org-roam-dailies-capture-today
+       :desc "Yesterday"     "y" #'org-roam-dailies-goto-yesterday
+       :desc "Tomorrow"      "m" #'org-roam-dailies-goto-tomorrow
+       :desc "Find directory" "d" #'org-roam-dailies-find-directory
+       :desc "Random note"   "r" #'org-roam-node-random))
+
+;; ── Note Export to Quartz Knowledge Graph ───────────────────────────
+;; Org-roam notes → Markdown for the Quartz static site.
+;; The notes-site/content/ directory mirrors org-roam structure.
+
+(defun my/org-roam-export-to-quartz ()
+  "Export current org-roam buffer to Markdown in the Quartz content directory."
+  (interactive)
+  (when (and (fboundp 'org-roam-buffer-p) (org-roam-buffer-p))
+    (let* ((org-file (buffer-file-name))
+           (md-file (concat (file-name-sans-extension
+                             (replace-regexp-in-string
+                              (expand-file-name org-roam-directory)
+                              (expand-file-name "~/ME/notes-site/content")
+                              org-file))
+                            ".md")))
+      (make-directory (file-name-directory md-file) t)
+      (org-md-export-to-markdown)
+      (message "Exported to %s" md-file))))
+
+(map! :map org-roam-mode-map
+      :leader
+      (:prefix ("r" . "roam")
+       :desc "Export to Quartz" "e" #'my/org-roam-export-to-quartz))
 #+end_src
 
 =org-roam-ui= provides a pretty graph.

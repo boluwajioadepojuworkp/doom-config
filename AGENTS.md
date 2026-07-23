@@ -18,26 +18,77 @@ doom sync && doom upgrade
 doom doctor
 ```
 
+## Note-Taking System (Org-Roam)
+This config implements the Michael Neuper CS note-taking method, adapted for
+the COME STUDIARE evidence-based learning system.
+
+### Directory Structure (`~/Notes/`)
+| Directory | Purpose | Capture Key |
+|-----------|---------|-------------|
+| `courses/` | Course index nodes (Week→Lecture→Topics) | `SPC r c c` |
+| `lectures/` | Individual lecture notes | `SPC r c l` |
+| `topics/` | Atomic topic/concept notes | `SPC r c t` |
+| `math/` | Mathematics reference notes (Paul's Notes) | `SPC r c m` |
+| `evergreen/` | Permanent/evergreen notes | `SPC r c p` |
+| `daily/` | Daily retrieval practice entries | `SPC r c j` |
+| `assets/` | Attached files and images | — |
+| `images/` | Drag-and-drop images | — |
+
+### Key Bindings
+| Key | Action |
+|-----|--------|
+| `SPC r f` | Find node (by modification time) |
+| `SPC r i` | Insert node link (lowercase) |
+| `SPC r I` | Insert node link (custom title) |
+| `SPC r b` | Toggle roam buffer (backlinks) |
+| `SPC r t` | Add tag to node |
+| `SPC r T` | Remove tag from node |
+| `SPC r v` | Visit node |
+| `SPC r u` | Open ORUI graph |
+| `SPC r a` | Add alias |
+| `SPC r A` | Remove alias |
+| `SPC r c` | Capture new note |
+| `SPC r j` | Today's daily note |
+| `SPC r r` | Random note |
+| `SPC r e` | Export to Quartz Markdown |
+| `SPC r s` | Search with Deft |
+
+### Note Structure (Neuper Method)
+Two patterns depending on how the professor organizes material:
+
+**Week → Lecture → Topics** (for professors who release slides weekly):
+```
+* Week 1
+** Lecture 1
+*** Topic 1 → links to topic node
+*** Topic 2 → links to topic node
+```
+
+**Chapter → Topics** (for professors who follow the textbook):
+```
+* Chapter 1
+** Topic 1 → links to topic node
+** Topic 2 → links to topic node
+```
+
+### When to Take Notes (Neuper Method)
+1. During lecture: listen, do NOT write. Focus on understanding.
+2. End of day: write what you remember from memory (retrieval practice).
+3. Fill gaps: consult textbook/lecture slides only after attempting recall.
+
+### Export to Quartz
+`SPC r e` exports the current org-roam buffer to `~/ME/notes-site/content/`
+as Markdown for the Quartz knowledge graph site.
+
 ## Key Modules
 | Module | Flags | Purpose |
 |--------|-------|---------|
-| `:lang org` | `+roam2` | Note-taking with Zettelkasten workflow, Org-Roam database |
-| `:lang latex` | `+cdlatex +latexmk +lsp` | Academic writing with live preview and code intelligence |
-| `:lang python` | — | Programming, data science, literate programming |
-| `:tools lsp` | — | Language server protocol for autocompletion and diagnostics |
-
-## Key Bindings
-- `<leader> r f` — Find Org-Roam node by modification time
-- `<leader> r i` — Insert Org-Roam link with automatic lowercase
-- `<leader> r b` — Toggle roam buffer (backlinks)
-- `<leader> r t` — Add tag to node
-
-## General Guidance
-- Configuration is literate: edit `config.org`, not raw Elisp files.
-- Org-Roam notes directory: `~/Notes`.
-- LaTeX compilation uses LatexMk for automatic dependency resolution.
-- Math rendering uses Xenops for asynchronous SVG preview.
-- Code intelligence uses TexLab LSP server.
+| `:lang org` | `+roam2 +dragndrop +gnuplot +pretty` | Note-taking with Zettelkasten, graph visualization, LaTeX |
+| `:lang latex` | `+cdlatex +lsp` | Academic writing with live preview and code intelligence |
+| `:lang python` | `+lsp +tree-sitter` | Programming, data science |
+| `:tools lsp` | `+eglot +booster` | Language server protocol |
+| `:tools magit` | — | Git porcelain |
+| `:tools pdf` | — | PDF viewing with annotations |
 
 ## Commit Messages
 - Follow the [Chris Beams](http://chris.beams.io/posts/git-commit-style/) style.
@@ -45,6 +96,7 @@ doom doctor
 
 ## Review Checklist
 - `doom doctor` reports no errors.
-- Org-Roam database syncs without errors.
+- Org-roam database syncs without errors.
 - LaTeX compilation succeeds on a test document.
-- No broken image references in `config.org`.
+- Capture templates produce correctly structured notes.
+- All keybindings under `SPC r` prefix work as documented.
