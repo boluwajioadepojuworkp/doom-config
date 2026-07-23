@@ -1,41 +1,50 @@
 # AGENTS.md — Doom Emacs Configuration
 
-## Project Overview
-Literate Doom Emacs configuration optimized for CS coursework, Org-Roam note-taking, and LaTeX academic writing. Written in Org-mode literate programming format.
+## Repository Layout
+- `init.el` — Doom Emacs entry point. Declares modules and flags.
+- `config.org` — Literate configuration in Org-mode format. All customization lives here.
+- `snippets/` — YASnippet templates for code generation.
+- `images/` — Screenshots for documentation.
 
-## Setup Commands
+## Building and Testing
 ```bash
 # Clone to Doom config directory
 git clone https://github.com/boluwajioadepojuworkp/doom-config ~/.doom.d
-# Sync and update Doom
+
+# Sync packages and apply configuration
 doom sync && doom upgrade
+
+# Run health checks
+doom doctor
 ```
 
 ## Key Modules
-- `:lang org +roam2` — Note-taking with Zettelkasten workflow
-- `:lang latex +cdlatex +latexmk +lsp` — Academic document preparation
-- `:lang python` — Programming and data science
-- `:tools lsp` — Language server protocol
+| Module | Flags | Purpose |
+|--------|-------|---------|
+| `:lang org` | `+roam2` | Note-taking with Zettelkasten workflow, Org-Roam database |
+| `:lang latex` | `+cdlatex +latexmk +lsp` | Academic writing with live preview and code intelligence |
+| `:lang python` | — | Programming, data science, literate programming |
+| `:tools lsp` | — | Language server protocol for autocompletion and diagnostics |
 
-## Key Bindings (Org-Roam)
-- `<leader> r f` — Find node by modification time
-- `<leader> r i` — Insert node link
+## Key Bindings
+- `<leader> r f` — Find Org-Roam node by modification time
+- `<leader> r i` — Insert Org-Roam link with automatic lowercase
 - `<leader> r b` — Toggle roam buffer (backlinks)
+- `<leader> r t` — Add tag to node
 
-## LaTeX Setup
-- AUCTeX for document editing
-- CDLaTeX for fast symbol insertion
-- LatexMk for automated compilation
-- Xenops for live math rendering
-- TexLab LSP for autocompletion and diagnostics
+## General Guidance
+- Configuration is literate: edit `config.org`, not raw Elisp files.
+- Org-Roam notes directory: `~/Notes`.
+- LaTeX compilation uses LatexMk for automatic dependency resolution.
+- Math rendering uses Xenops for asynchronous SVG preview.
+- Code intelligence uses TexLab LSP server.
 
-## Code Style
-- Literate config in `config.org` (not `config.el`)
-- Module flags in `init.el` doom block
-- Custom snippets in `snippets/` directory
-- Screenshots in `images/` for documentation
+## Commit Messages
+- Follow the [Chris Beams](http://chris.beams.io/posts/git-commit-style/) style.
+- Every commit should answer: what changed and why.
 
-## Testing
-- `doom doctor` — Check for configuration issues
-- Verify Org-Roam database syncs: `M-x org-roam-db-sync`
-- Test LaTeX compilation with sample document
+## Review Checklist
+- `doom doctor` reports no errors.
+- Org-Roam database syncs without errors.
+- LaTeX compilation succeeds on a test document.
+- No broken image references in `config.org`.
