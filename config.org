@@ -2002,7 +2002,7 @@ Set up =org-roam= along with keybindings that have the [[kbd:][<leader> r]] pref
          :desc "Visit node"         "v" #'org-roam-node-visit)))
 
 ;; ── Capture Templates ──────────────────────────────────────────────
-;; Adapted from Michael Neuper's CS note-taking method.
+;; Evidence-based note templates for course notes, math, and evergreen notes.
 ;; Structure: Week → Lecture → Topics  OR  Chapter → Topics
 
 (setq org-roam-capture-templates

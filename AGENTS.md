@@ -19,8 +19,9 @@ doom doctor
 ```
 
 ## Note-Taking System (Org-Roam)
-This config implements the Michael Neuper CS note-taking method, adapted for
-the COME STUDIARE evidence-based learning system.
+This config implements evidence-based note-taking with spaced repetition,
+retrieval practice, and dense concept linking — built on Org-Roam with
+Doom Emacs.
 
 ### Directory Structure (`~/Notes/`)
 | Directory | Purpose | Capture Key |
@@ -53,8 +54,8 @@ the COME STUDIARE evidence-based learning system.
 | `SPC r e` | Export to Quartz Markdown |
 | `SPC r s` | Search with Deft |
 
-### Note Structure (Neuper Method)
-Two patterns depending on how the professor organizes material:
+### Note Structure
+Two patterns depending on how the course material is organized:
 
 **Week → Lecture → Topics** (for professors who release slides weekly):
 ```
@@ -71,8 +72,8 @@ Two patterns depending on how the professor organizes material:
 ** Topic 2 → links to topic node
 ```
 
-### When to Take Notes (Neuper Method)
-1. During lecture: listen, do NOT write. Focus on understanding.
+### When to Take Notes
+1. During lecture: listen actively. Do not transcribe.
 2. End of day: write what you remember from memory (retrieval practice).
 3. Fill gaps: consult textbook/lecture slides only after attempting recall.
 
